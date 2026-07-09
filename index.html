@@ -607,14 +607,14 @@
   /* слоты-медальоны: две колонки резных круглых кнопок (в духе саба), но в своей золотой палитре — надёжный flex, без плавающей сетки.
      Тонкий полупрозрачный силуэт персонажа — фон позади слотов (как у саба: еле заметная фигура, не сплошная заливка). */
   .equip-gear-wrap{position:relative;}
-  .equip-figure-bg{position:absolute;left:50%;top:2px;transform:translateX(-50%);width:170px;max-width:56%;
+  .equip-figure-bg{position:absolute;left:50%;top:2px;transform:translateX(-50%);width:120px;max-width:38%;
     height:calc(100% - 4px);opacity:.13;pointer-events:none;z-index:0;}
   .equip-medallion-wrap,.equip-extra-label,.equip-medallion-row{position:relative;z-index:1;}
-  .equip-medallion-wrap{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-bottom:10px;}
-  .equip-medallion-col{display:flex;flex-direction:column;gap:8px;align-items:center;}
-  .equip-medallion-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
-  .equip-medallion-item{display:flex;flex-direction:column;align-items:center;gap:4px;width:58px;}
-  .equip-medallion{position:relative;width:50px;height:50px;border-radius:50%;cursor:pointer;flex:0 0 auto;
+  .equip-medallion-wrap{display:flex;justify-content:center;gap:16px;margin-bottom:6px;}
+  .equip-medallion-col{display:flex;flex-direction:column;gap:6px;align-items:center;}
+  .equip-medallion-row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;}
+  .equip-medallion-item{display:flex;flex:0 0 auto;}
+  .equip-medallion{position:relative;width:46px;height:46px;border-radius:50%;cursor:pointer;flex:0 0 auto;
     background:radial-gradient(circle at 34% 30%, #3a3220, #17140c 80%);
     border:2px solid var(--accent-dim);
     box-shadow:inset 0 2px 5px rgba(0,0,0,.65), inset 0 -1px 0 rgba(255,255,255,.05), 0 3px 8px -3px rgba(0,0,0,.65);
@@ -622,17 +622,13 @@
   .equip-medallion:hover{transform:translateY(-2px);border-color:var(--accent);}
   .equip-medallion.filled{border-color:var(--accent);
     box-shadow:inset 0 2px 5px rgba(0,0,0,.5), 0 0 12px -3px var(--gold-glow), 0 3px 8px -3px rgba(0,0,0,.65);}
-  .equip-medallion img{width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.7));}
-  .equip-medallion .empty-plus{color:var(--accent-dim);font-size:16px;line-height:1;}
+  .equip-medallion img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.7));}
+  .equip-medallion svg{width:20px;height:20px;stroke:var(--accent-dim);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
   .equip-medallion-rdot{position:absolute;top:-2px;right:-2px;width:10px;height:10px;border-radius:50%;
     border:2px solid var(--bg2);box-shadow:0 0 6px -1px currentColor;}
-  .equip-medallion-label{font-size:9px;color:var(--text3);text-align:center;line-height:1.2;width:100%;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:22px;}
-  .equip-medallion.filled ~ .equip-medallion-label,
-  .equip-medallion-item.filled .equip-medallion-label{color:var(--text2);}
 
   .equip-extra-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-    color:var(--text3);margin:12px 0 8px;text-align:center;}
+    color:var(--text3);margin:10px 0 6px;text-align:center;}
 
   .equip-summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:7px;}
   .equip-sum-card{background:var(--card2);border:1px solid var(--border-soft);border-radius:10px;padding:7px 10px;}
@@ -3556,29 +3552,45 @@ Object.keys(WARDROBE.data).forEach(typeid=>{
 const WEAPON_TYPEIDS = [8,9,12,14,15,30,31,32,33,35,37,38,39];
 const SLOT_DEFS = [
   // левая колонка (броня)
-  {key:'helmet',    typeid:[1],  label:'Шлем',      col:'left'},
-  {key:'necklace',  typeid:[2],  label:'Ожерелье',  col:'left'},
-  {key:'armor',     typeid:[3],  label:'Доспех',    col:'left'},
-  {key:'bracers',   typeid:[5],  label:'Наручи',    col:'left'},
-  {key:'gloves',    typeid:[4],  label:'Перчатки',  col:'left'},
-  {key:'belt',      typeid:[6],  label:'Пояс',      col:'left'},
+  {key:'helmet',    typeid:[1],  label:'Шлем',      col:'left',  type:'helmet'},
+  {key:'necklace',  typeid:[2],  label:'Ожерелье',  col:'left',  type:'necklace'},
+  {key:'armor',     typeid:[3],  label:'Доспех',    col:'left',  type:'armor'},
+  {key:'bracers',   typeid:[5],  label:'Наручи',    col:'left',  type:'bracers'},
+  {key:'gloves',    typeid:[4],  label:'Перчатки',  col:'left',  type:'gloves'},
+  {key:'belt',      typeid:[6],  label:'Пояс',      col:'left',  type:'belt'},
   // правая колонка (доп. броня + серьги/кольца)
-  {key:'legs',      typeid:[10], label:'Поножи',    col:'right'},
-  {key:'boots',     typeid:[11], label:'Обувь',     col:'right'},
-  {key:'earring1',  typeid:[55], label:'Серьга',    col:'right'},
-  {key:'earring2',  typeid:[55], label:'Серьга',    col:'right'},
-  {key:'ring1',     typeid:[7],  label:'Кольцо',    col:'right'},
-  {key:'ring2',     typeid:[7],  label:'Кольцо',    col:'right'},
+  {key:'legs',      typeid:[10], label:'Поножи',    col:'right', type:'legs'},
+  {key:'boots',     typeid:[11], label:'Обувь',     col:'right', type:'boots'},
+  {key:'earring1',  typeid:[55], label:'Серьга',    col:'right', type:'earring'},
+  {key:'earring2',  typeid:[55], label:'Серьга',    col:'right', type:'earring'},
+  {key:'ring1',     typeid:[7],  label:'Кольцо',    col:'right', type:'ring'},
+  {key:'ring2',     typeid:[7],  label:'Кольцо',    col:'right', type:'ring'},
   // нижний ряд (кольца, реликвии, оружие)
-  {key:'ring3',     typeid:[7],  label:'Кольцо',    col:'extra'},
-  {key:'ring4',     typeid:[7],  label:'Кольцо',    col:'extra'},
-  {key:'relic1',    typeid:[40], label:'Реликвия',  col:'extra'},
-  {key:'relic2',    typeid:[40], label:'Реликвия',  col:'extra'},
-  {key:'relic3',    typeid:[40], label:'Реликвия',  col:'extra'},
-  {key:'relic4',    typeid:[40], label:'Реликвия',  col:'extra'},
-  {key:'weapon1',   typeid:WEAPON_TYPEIDS, label:'Оружие', col:'extra'},
-  {key:'weapon2',   typeid:WEAPON_TYPEIDS, label:'Оружие', col:'extra'},
+  {key:'ring3',     typeid:[7],  label:'Кольцо',    col:'extra', type:'ring'},
+  {key:'ring4',     typeid:[7],  label:'Кольцо',    col:'extra', type:'ring'},
+  {key:'relic1',    typeid:[40], label:'Реликвия',  col:'extra', type:'relic'},
+  {key:'relic2',    typeid:[40], label:'Реликвия',  col:'extra', type:'relic'},
+  {key:'relic3',    typeid:[40], label:'Реликвия',  col:'extra', type:'relic'},
+  {key:'relic4',    typeid:[40], label:'Реликвия',  col:'extra', type:'relic'},
+  {key:'weapon1',   typeid:WEAPON_TYPEIDS, label:'Оружие', col:'extra', type:'weapon'},
+  {key:'weapon2',   typeid:WEAPON_TYPEIDS, label:'Оружие', col:'extra', type:'weapon'},
 ];
+
+// маленькие контурные иконки-заглушки для пустых слотов (без подписей — компактно, как у саба)
+const SLOT_GLYPHS = {
+  helmet:   '<path d="M4 15 Q4 5 12 5 Q20 5 20 15" /><line x1="3" y1="15" x2="21" y2="15"/>',
+  necklace: '<path d="M6 5 Q12 14 18 5"/><circle cx="12" cy="15" r="2"/>',
+  armor:    '<path d="M6 4 L12 7 L18 4 L19 12 Q19 19 12 21 Q5 19 5 12 Z"/>',
+  bracers:  '<rect x="6" y="8" width="12" height="8" rx="3"/><line x1="6" y1="12" x2="18" y2="12"/>',
+  gloves:   '<path d="M8 20 L8 11 Q8 7 12 7 Q16 7 16 11 L16 20 Z"/><line x1="8" y1="14" x2="6" y2="10"/>',
+  belt:     '<rect x="4" y="10" width="16" height="5" rx="1"/><rect x="10" y="10" width="4" height="5"/>',
+  legs:     '<path d="M9 4 L9 14 L7 21 L11 21 L12 15 L13 21 L17 21 L15 14 L15 4 Z"/>',
+  boots:    '<path d="M9 3 L9 14 L6 17 L6 20 L18 20 L18 15 L14 15 L14 3 Z"/>',
+  earring:  '<line x1="12" y1="4" x2="12" y2="10"/><circle cx="12" cy="14" r="4"/>',
+  ring:     '<circle cx="12" cy="12" r="6"/><circle cx="12" cy="8" r="1.6" fill="var(--accent-dim)"/>',
+  relic:    '<path d="M12 4 L19 10 L12 20 L5 10 Z"/>',
+  weapon:   '<line x1="5" y1="19" x2="17" y2="7"/><line x1="14" y1="4" x2="20" y2="10"/><line x1="4" y1="18" x2="7" y2="21"/>',
+};
 const SLOT_BY_KEY = {}; SLOT_DEFS.forEach(s=>SLOT_BY_KEY[s.key]=s);
 
 // Раздел "редкость" в переодевалке — 8 категорий (числовые значения 1,2,3,5,6,7,8,9; 4 не используется).
@@ -3698,13 +3710,13 @@ function renderPointsChip(){
 function medallionHtml(s){
   const it = equippedItem(s.key);
   const meta = it ? RARITY_META[it.rarity] : null;
+  const glyph = SLOT_GLYPHS[s.type] || '';
   return `
-  <div class="equip-medallion-item ${it?'filled':''}" data-slot="${s.key}" title="${s.label}${it?': '+escapeHtml(it.name):''}">
+  <div class="equip-medallion-item" data-slot="${s.key}" title="${s.label}${it?': '+escapeHtml(it.name):''}">
     <div class="equip-medallion ${it?'filled':''}">
       ${it && meta ? `<div class="equip-medallion-rdot" style="background:${meta.color};color:${meta.color};"></div>` : ''}
-      ${it && it.icon ? `<img src="${escapeHtml(it.icon)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<span class="empty-plus">＋</span>`}
+      ${it && it.icon ? `<img src="${escapeHtml(it.icon)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<svg viewBox="0 0 24 24">${glyph}</svg>`}
     </div>
-    <div class="equip-medallion-label">${it ? escapeHtml(it.name) : s.label}</div>
   </div>`;
 }
 function renderEquipSlotsGrid(){
