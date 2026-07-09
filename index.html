@@ -588,15 +588,14 @@
   .stat-row-sub b{color:var(--green);}
   .stat-total{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--accent);min-width:26px;text-align:center;}
 
-  .equip-slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:9px;margin-bottom:6px;}
   .equip-slot{position:relative;background:linear-gradient(160deg,var(--card),var(--bg2));
     border:1px solid var(--border-soft);border-radius:var(--radius);padding:9px 6px 8px;text-align:center;
-    transition:border-color .15s, transform .15s, box-shadow .15s;}
+    transition:border-color .15s, transform .15s, box-shadow .15s;cursor:pointer;}
   .equip-slot:hover{border-color:var(--accent-dim);transform:translateY(-2px);}
   .equip-slot.filled{border-color:rgba(227,178,92,.4);box-shadow:0 0 0 1px var(--gold-line) inset;}
   .equip-slot-icon{width:44px;height:44px;margin:0 auto;border-radius:50%;object-fit:contain;
     background:radial-gradient(circle at 35% 30%, #2a2f42, #14161f 75%);
-    border:1px solid var(--border-soft);padding:6px;display:flex;align-items:center;justify-content:center;}
+    border:1px solid var(--border-soft);padding:6px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
   .equip-slot-icon img{width:100%;height:100%;object-fit:contain;}
   .equip-slot-empty-label{font-size:15px;color:var(--text3);}
   .equip-slot-name{font-size:10px;color:var(--text3);margin-top:6px;line-height:1.25;
@@ -604,6 +603,44 @@
   .equip-slot.filled .equip-slot-name{color:var(--text2);}
   .equip-slot-rdot{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;
     box-shadow:0 0 6px -1px currentColor;}
+
+  /* paperdoll layout: колонки слотов слева/справа от силуэта персонажа + нижний ряд аксессуаров/оружия */
+  .equip-doll-wrap{display:grid;grid-template-columns:1fr minmax(88px,116px) 1fr;gap:8px;align-items:start;margin-bottom:14px;}
+  .equip-doll-col{display:flex;flex-direction:column;gap:7px;min-width:0;}
+  .equip-doll-figure{position:relative;grid-row:1;padding-top:4px;}
+  .equip-doll-glow{position:absolute;inset:-24px -10px;
+    background:radial-gradient(ellipse at 50% 38%, rgba(227,178,92,.18), transparent 68%);pointer-events:none;}
+  .equip-doll-svg{position:relative;width:100%;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.65));}
+  .equip-doll-lvl{position:relative;text-align:center;margin-top:6px;font-family:var(--font-display);
+    font-size:11px;color:var(--accent);letter-spacing:.05em;text-shadow:0 0 10px var(--gold-glow);}
+
+  .equip-doll-slot{position:relative;display:flex;align-items:center;gap:7px;
+    background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--border-soft);
+    border-radius:10px;padding:5px 7px;cursor:pointer;transition:border-color .15s, transform .15s;min-width:0;}
+  .equip-doll-slot:hover{border-color:var(--accent-dim);}
+  .equip-doll-slot.filled{border-color:rgba(227,178,92,.4);box-shadow:0 0 0 1px var(--gold-line) inset;}
+  .equip-doll-col:first-child .equip-doll-slot{flex-direction:row;}
+  .equip-doll-col:last-child .equip-doll-slot{flex-direction:row-reverse;text-align:right;}
+  .equip-doll-slot-icon{width:32px;height:32px;border-radius:50%;object-fit:contain;flex:0 0 auto;
+    background:radial-gradient(circle at 35% 30%, #2a2f42, #14161f 75%);border:1px solid var(--border-soft);
+    display:flex;align-items:center;justify-content:center;}
+  .equip-doll-slot-icon img{width:100%;height:100%;object-fit:contain;}
+  .equip-doll-slot-icon span{font-size:12px;color:var(--text3);}
+  .equip-doll-slot-name{font-size:10px;color:var(--text3);line-height:1.2;min-width:0;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .equip-doll-slot.filled .equip-doll-slot-name{color:var(--text2);}
+  .equip-doll-slot-rdot{position:absolute;top:4px;width:7px;height:7px;border-radius:50%;box-shadow:0 0 6px -1px currentColor;}
+  .equip-doll-col:first-child .equip-doll-slot-rdot{right:4px;}
+  .equip-doll-col:last-child .equip-doll-slot-rdot{left:4px;}
+
+  .equip-extra-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--text3);margin:14px 0 8px;}
+  .equip-slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:9px;}
+  @media (max-width:420px){
+    .equip-doll-wrap{grid-template-columns:1fr 78px 1fr;gap:5px;}
+    .equip-doll-slot-name{font-size:9px;}
+    .equip-doll-slot-icon{width:27px;height:27px;}
+  }
 
   .equip-summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;}
   .equip-sum-card{background:var(--card2);border:1px solid var(--border-soft);border-radius:10px;padding:9px 12px;}
@@ -808,7 +845,38 @@
     <div class="pool">
       <h3>Снаряжение</h3>
       <div class="pool-note">Нажмите на слот, чтобы выбрать вещь. Требования по уровню/характеристикам показаны в списке — несоответствие не блокирует выбор, просто подсвечено.</div>
-      <div class="equip-slots-grid" id="equipSlotsGrid"></div>
+      <div class="equip-doll-wrap">
+        <div class="equip-doll-col" id="equipSlotsLeft"></div>
+        <div class="equip-doll-figure">
+          <div class="equip-doll-glow"></div>
+          <svg class="equip-doll-svg" viewBox="0 0 120 320" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="dollFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2a2f42"/>
+                <stop offset="100%" stop-color="#14161f"/>
+              </linearGradient>
+              <linearGradient id="dollRim" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="rgba(227,178,92,.06)"/>
+                <stop offset="50%" stop-color="rgba(227,178,92,.6)"/>
+                <stop offset="100%" stop-color="rgba(227,178,92,.06)"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="60" cy="34" rx="15" ry="17" fill="url(#dollFill)" stroke="url(#dollRim)" stroke-width="1.3"/>
+            <rect x="53" y="48" width="14" height="10" fill="url(#dollFill)"/>
+            <path d="M30,62 Q60,52 90,62 L96,110 Q98,145 88,168 L32,168 Q22,145 24,110 Z" fill="url(#dollFill)" stroke="url(#dollRim)" stroke-width="1.3"/>
+            <rect x="26" y="148" width="68" height="7" rx="2" fill="rgba(227,178,92,.28)"/>
+            <path d="M30,64 Q14,80 12,120 Q11,150 18,172 L30,168 Q26,140 28,112 Q29,90 40,68 Z" fill="url(#dollFill)" stroke="url(#dollRim)" stroke-width="1.1"/>
+            <path d="M90,64 Q106,80 108,120 Q109,150 102,172 L90,168 Q94,140 92,112 Q91,90 80,68 Z" fill="url(#dollFill)" stroke="url(#dollRim)" stroke-width="1.1"/>
+            <path d="M34,168 L56,168 L54,290 Q54,300 46,300 Q40,300 40,292 L38,200 Z" fill="url(#dollFill)" stroke="url(#dollRim)" stroke-width="1.1"/>
+            <path d="M86,168 L64,168 L66,290 Q66,300 74,300 Q80,300 80,292 L82,200 Z" fill="url(#dollFill)" stroke="url(#dollRim)" stroke-width="1.1"/>
+            <path d="M45,75 L45,145 M75,75 L75,145 M60,70 L60,150" stroke="rgba(227,178,92,.18)" stroke-width="1"/>
+          </svg>
+          <div class="equip-doll-lvl" id="equipDollLvl"></div>
+        </div>
+        <div class="equip-doll-col" id="equipSlotsRight"></div>
+      </div>
+      <div class="equip-extra-label">Кольца, реликвии и оружие</div>
+      <div class="equip-slots-grid" id="equipSlotsExtra"></div>
     </div>
 
     <div class="pool">
@@ -3507,26 +3575,29 @@ Object.keys(WARDROBE.data).forEach(typeid=>{
 });
 const WEAPON_TYPEIDS = [8,9,12,14,15,30,31,32,33,35,37,38,39];
 const SLOT_DEFS = [
-  {key:'helmet',    typeid:[1],  label:'Шлем'},
-  {key:'necklace',  typeid:[2],  label:'Ожерелье'},
-  {key:'armor',     typeid:[3],  label:'Доспех'},
-  {key:'gloves',    typeid:[4],  label:'Перчатки'},
-  {key:'bracers',   typeid:[5],  label:'Наручи'},
-  {key:'belt',      typeid:[6],  label:'Пояс'},
-  {key:'ring1',     typeid:[7],  label:'Кольцо'},
-  {key:'ring2',     typeid:[7],  label:'Кольцо'},
-  {key:'ring3',     typeid:[7],  label:'Кольцо'},
-  {key:'ring4',     typeid:[7],  label:'Кольцо'},
-  {key:'legs',      typeid:[10], label:'Поножи'},
-  {key:'boots',     typeid:[11], label:'Обувь'},
-  {key:'earring1',  typeid:[55], label:'Серьга'},
-  {key:'earring2',  typeid:[55], label:'Серьга'},
-  {key:'relic1',    typeid:[40], label:'Реликвия'},
-  {key:'relic2',    typeid:[40], label:'Реликвия'},
-  {key:'relic3',    typeid:[40], label:'Реликвия'},
-  {key:'relic4',    typeid:[40], label:'Реликвия'},
-  {key:'weapon1',   typeid:WEAPON_TYPEIDS, label:'Оружие'},
-  {key:'weapon2',   typeid:WEAPON_TYPEIDS, label:'Оружие'},
+  // левая колонка (броня)
+  {key:'helmet',    typeid:[1],  label:'Шлем',      col:'left'},
+  {key:'necklace',  typeid:[2],  label:'Ожерелье',  col:'left'},
+  {key:'armor',     typeid:[3],  label:'Доспех',    col:'left'},
+  {key:'bracers',   typeid:[5],  label:'Наручи',    col:'left'},
+  {key:'gloves',    typeid:[4],  label:'Перчатки',  col:'left'},
+  {key:'belt',      typeid:[6],  label:'Пояс',      col:'left'},
+  // правая колонка (доп. броня + серьги/кольца)
+  {key:'legs',      typeid:[10], label:'Поножи',    col:'right'},
+  {key:'boots',     typeid:[11], label:'Обувь',     col:'right'},
+  {key:'earring1',  typeid:[55], label:'Серьга',    col:'right'},
+  {key:'earring2',  typeid:[55], label:'Серьга',    col:'right'},
+  {key:'ring1',     typeid:[7],  label:'Кольцо',    col:'right'},
+  {key:'ring2',     typeid:[7],  label:'Кольцо',    col:'right'},
+  // нижний ряд (кольца, реликвии, оружие)
+  {key:'ring3',     typeid:[7],  label:'Кольцо',    col:'extra'},
+  {key:'ring4',     typeid:[7],  label:'Кольцо',    col:'extra'},
+  {key:'relic1',    typeid:[40], label:'Реликвия',  col:'extra'},
+  {key:'relic2',    typeid:[40], label:'Реликвия',  col:'extra'},
+  {key:'relic3',    typeid:[40], label:'Реликвия',  col:'extra'},
+  {key:'relic4',    typeid:[40], label:'Реликвия',  col:'extra'},
+  {key:'weapon1',   typeid:WEAPON_TYPEIDS, label:'Оружие', col:'extra'},
+  {key:'weapon2',   typeid:WEAPON_TYPEIDS, label:'Оружие', col:'extra'},
 ];
 const SLOT_BY_KEY = {}; SLOT_DEFS.forEach(s=>SLOT_BY_KEY[s.key]=s);
 
@@ -3644,21 +3715,40 @@ function renderPointsChip(){
   chip.classList.toggle('over', remain < 0);
 }
 
+function dollSlotHtml(s){
+  const it = equippedItem(s.key);
+  const meta = it ? RARITY_META[it.rarity] : null;
+  return `
+  <div class="equip-doll-slot ${it?'filled':''}" data-slot="${s.key}" title="${s.label}${it?': '+escapeHtml(it.name):''}">
+    ${it && meta ? `<div class="equip-doll-slot-rdot" style="background:${meta.color};color:${meta.color};"></div>` : ''}
+    <div class="equip-doll-slot-icon">
+      ${it && it.icon ? `<img src="${escapeHtml(it.icon)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<span>＋</span>`}
+    </div>
+    <div class="equip-doll-slot-name">${it ? escapeHtml(it.name) : s.label}</div>
+  </div>`;
+}
+function extraSlotHtml(s){
+  const it = equippedItem(s.key);
+  const meta = it ? RARITY_META[it.rarity] : null;
+  return `
+  <div class="equip-slot ${it?'filled':''}" data-slot="${s.key}" title="${s.label}${it?': '+escapeHtml(it.name):''}">
+    ${it && meta ? `<div class="equip-slot-rdot" style="background:${meta.color};color:${meta.color};"></div>` : ''}
+    <div class="equip-slot-icon">
+      ${it && it.icon ? `<img src="${escapeHtml(it.icon)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<span class="equip-slot-empty-label">＋</span>`}
+    </div>
+    <div class="equip-slot-name">${it ? escapeHtml(it.name) : s.label}</div>
+  </div>`;
+}
 function renderEquipSlotsGrid(){
-  const grid = document.getElementById('equipSlotsGrid');
-  grid.innerHTML = SLOT_DEFS.map(s=>{
-    const it = equippedItem(s.key);
-    const meta = it ? RARITY_META[it.rarity] : null;
-    return `
-    <div class="equip-slot ${it?'filled':''}" data-slot="${s.key}" title="${s.label}${it?': '+escapeHtml(it.name):''}">
-      ${it && meta ? `<div class="equip-slot-rdot" style="background:${meta.color};color:${meta.color};"></div>` : ''}
-      <div class="equip-slot-icon">
-        ${it && it.icon ? `<img src="${escapeHtml(it.icon)}" alt="" loading="lazy" onerror="this.style.display='none'">` : `<span class="equip-slot-empty-label">＋</span>`}
-      </div>
-      <div class="equip-slot-name">${it ? escapeHtml(it.name) : s.label}</div>
-    </div>`;
-  }).join('');
-  grid.querySelectorAll('.equip-slot').forEach(el=> el.addEventListener('click', ()=> openEquipPicker(el.dataset.slot)));
+  const left = SLOT_DEFS.filter(s=>s.col==='left');
+  const right = SLOT_DEFS.filter(s=>s.col==='right');
+  const extra = SLOT_DEFS.filter(s=>s.col==='extra');
+  document.getElementById('equipSlotsLeft').innerHTML = left.map(dollSlotHtml).join('');
+  document.getElementById('equipSlotsRight').innerHTML = right.map(dollSlotHtml).join('');
+  document.getElementById('equipSlotsExtra').innerHTML = extra.map(extraSlotHtml).join('');
+  document.getElementById('equipDollLvl').textContent = `ур. ${equipCharLevel}`;
+  document.querySelectorAll('.equip-doll-slot, #equipSlotsExtra .equip-slot').forEach(el=>
+    el.addEventListener('click', ()=> openEquipPicker(el.dataset.slot)));
 }
 
 function renderEquipSummary(){
