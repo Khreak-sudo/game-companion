@@ -608,8 +608,8 @@
      ряд оружия снизу. За колонками — свой, оригинально нарисованный силуэт мистика с посохом
      (не копия картинки саба — своя иллюстрация в похожем настроении и в золотой палитре сайта). */
   .equip-gear-wrap{position:relative;}
-  .equip-figure-bg{position:absolute;left:50%;top:0;transform:translateX(-50%);width:200px;max-width:56%;
-    height:100%;opacity:.24;pointer-events:none;z-index:0;}
+  .equip-figure-bg{position:absolute;left:50%;top:0;transform:translateX(-50%);width:240px;max-width:64%;
+    height:100%;opacity:.5;pointer-events:none;z-index:0;}
   .equip-medallion-wrap,.equip-medallion-row{position:relative;z-index:1;}
   .equip-medallion-relics{margin-bottom:10px;}
   .equip-medallion-wrap{display:flex;justify-content:center;align-items:flex-start;gap:28px;margin-bottom:10px;}
@@ -839,29 +839,46 @@
       <h3>Снаряжение</h3>
       <div class="pool-note">Нажмите на слот, чтобы выбрать вещь. Требования по уровню/характеристикам показаны в списке — несоответствие не блокирует выбор, просто подсвечено.</div>
       <div class="equip-gear-wrap">
-        <svg class="equip-figure-bg" viewBox="0 0 140 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg class="equip-figure-bg" viewBox="0 0 160 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
-            <linearGradient id="equipRobeGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#4a3a22"/>
-              <stop offset="55%" stop-color="#241c10"/>
-              <stop offset="100%" stop-color="#0c0a06"/>
+            <linearGradient id="equipRobeGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#71592f"/>
+              <stop offset="50%" stop-color="#2c2314"/>
+              <stop offset="100%" stop-color="#0d0a05"/>
+            </linearGradient>
+            <linearGradient id="equipRobeShade" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#000000" stop-opacity=".6"/>
             </linearGradient>
             <radialGradient id="equipGlowGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#fbe7ae" stop-opacity=".95"/>
-              <stop offset="45%" stop-color="#e3b25c" stop-opacity=".5"/>
+              <stop offset="0%" stop-color="#fff3d2" stop-opacity="1"/>
+              <stop offset="35%" stop-color="#f0c674" stop-opacity=".8"/>
               <stop offset="100%" stop-color="#e3b25c" stop-opacity="0"/>
             </radialGradient>
+            <radialGradient id="equipGemGrad" cx="38%" cy="32%" r="70%">
+              <stop offset="0%" stop-color="#a8ece8"/>
+              <stop offset="60%" stop-color="#2f8f92"/>
+              <stop offset="100%" stop-color="#0e3c3e"/>
+            </radialGradient>
           </defs>
-          <circle cx="24" cy="308" r="30" fill="url(#equipGlowGrad)"/>
-          <path d="M42,44 Q70,30 98,44 L106,118 Q110,220 100,336 Q70,362 40,336 Q30,220 34,118 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width=".6" stroke-opacity=".5"/>
-          <path d="M58,10 Q70,0 82,10 Q90,22 86,40 L54,40 Q50,22 58,10 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width=".6" stroke-opacity=".5"/>
-          <ellipse cx="70" cy="27" rx="9" ry="11" fill="#0a0806" opacity=".7"/>
-          <path d="M70,46 L67,338" stroke="#e3b25c" stroke-width="1.1" stroke-opacity=".45"/>
-          <path d="M46,60 Q34,120 32,200 Q31,260 40,320" fill="none" stroke="#e3b25c" stroke-width=".7" stroke-opacity=".3"/>
-          <path d="M94,60 Q106,120 108,200 Q109,260 100,320" fill="none" stroke="#e3b25c" stroke-width=".7" stroke-opacity=".3"/>
-          <path d="M40,80 Q22,140 24,220 Q25,270 30,300 L38,296 Q33,250 33,210 Q32,150 47,90 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width=".5" stroke-opacity=".4"/>
-          <line x1="24" y1="300" x2="24" y2="66" stroke="#c8935a" stroke-width="1.6" stroke-opacity=".6"/>
-          <circle cx="24" cy="60" r="6" fill="url(#equipGlowGrad)"/>
+          <circle cx="20" cy="44" r="46" fill="url(#equipGlowGrad)"/>
+          <ellipse cx="80" cy="380" rx="48" ry="10" fill="#000000" opacity=".35"/>
+          <path d="M34,82 Q80,58 126,82 L134,192 Q140,292 122,374 Q80,394 38,374 Q20,292 26,192 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width="1.4" stroke-opacity=".7"/>
+          <path d="M80,82 Q80,58 126,82 L134,192 Q140,292 122,374 Q100,390 80,394 Z" fill="url(#equipRobeShade)"/>
+          <path d="M60,102 Q52,222 58,362" fill="none" stroke="#000000" stroke-width="2.2" stroke-opacity=".28"/>
+          <path d="M100,102 Q108,222 102,362" fill="none" stroke="#000000" stroke-width="2.2" stroke-opacity=".28"/>
+          <rect x="46" y="174" width="68" height="13" rx="3" fill="#3a2c18" stroke="#e3b25c" stroke-width="1.1" stroke-opacity=".8"/>
+          <circle cx="80" cy="180" r="7.5" fill="url(#equipGemGrad)" stroke="#e3b25c" stroke-width="1"/>
+          <path d="M56,20 Q80,2 104,20 Q112,40 106,58 L54,58 Q48,40 56,20 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width="1.4" stroke-opacity=".7"/>
+          <ellipse cx="80" cy="42" rx="15" ry="16" fill="#080604" opacity=".85"/>
+          <circle cx="74" cy="40" r="1.8" fill="#f0c674"/>
+          <circle cx="86" cy="40" r="1.8" fill="#f0c674"/>
+          <path d="M40,97 Q22,122 20,162 Q19,192 26,207 L36,202 Q30,177 31,152 Q32,127 48,107 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width="1.1" stroke-opacity=".55"/>
+          <line x1="20" y1="202" x2="20" y2="374" stroke="#caa15f" stroke-width="3.4" stroke-linecap="round"/>
+          <line x1="20" y1="232" x2="20" y2="238" stroke="#0c0a06" stroke-width="4.4"/>
+          <line x1="20" y1="262" x2="20" y2="268" stroke="#0c0a06" stroke-width="4.4"/>
+          <circle cx="20" cy="44" r="17" fill="url(#equipGlowGrad)" opacity=".85"/>
+          <circle cx="20" cy="44" r="10" fill="url(#equipGemGrad)"/>
         </svg>
         <div class="equip-medallion-row equip-medallion-relics" id="equipSlotsRelics"></div>
         <div class="equip-medallion-wrap">
