@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Новая Эра — вики-помощник (прототип v2)</title>
+<title>Новая Эра — вики-помощник</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -51,9 +51,12 @@
     display:flex;align-items:center;gap:9px;}
   header h1::before{content:'⚔';font-size:14px;color:var(--accent2);filter:drop-shadow(0 0 6px var(--gold-glow));}
   .tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border-soft);
-    border-radius:11px;padding:4px;width:fit-content;box-shadow:inset 0 1px 0 rgba(255,255,255,.03);}
+    border-radius:11px;padding:4px;max-width:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;}
+  .tabs::-webkit-scrollbar{display:none;}
   .tabs button{padding:7px 16px;border-radius:8px;border:none;background:none;color:var(--text2);
-    font-size:13px;font-weight:600;letter-spacing:.02em;transition:color .15s, background .15s;}
+    font-size:13px;font-weight:600;letter-spacing:.02em;transition:color .15s, background .15s;
+    white-space:nowrap;flex:0 0 auto;}
   .tabs button:hover{color:var(--text);}
   .tabs button.active{background:linear-gradient(180deg,#3a2f14,#241c0c);color:var(--accent);
     box-shadow:inset 0 0 0 1px var(--gold-line), 0 0 14px -4px var(--gold-glow);}
@@ -304,7 +307,7 @@
     font-size:11px;line-height:1.55;border-radius:9px;padding:10px 12px;margin-bottom:15px;}
   .auth-submit-btn{width:100%;margin-top:2px;}
 
-  /* locked sections: демо-версия регистрации без бэкенда — контент виден, но заблокирован */
+  /* locked sections: контент виден всем, но открывается только после входа в аккаунт */
   .locked-wrap{position:relative;min-height:220px;}
   .section-lock{position:absolute;inset:0;background:linear-gradient(170deg, rgba(11,13,20,.94), rgba(11,13,20,.98));
     backdrop-filter:blur(3px);border-radius:14px;display:flex;flex-direction:column;align-items:center;
@@ -381,9 +384,6 @@
   .qty-row input:focus{outline:none;border-color:var(--accent-dim);}
   .toggle-row{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text2);margin:18px 0 9px;}
   .toggle-row input{width:16px;height:16px;accent-color:var(--accent2);}
-
-  .footer-note{max-width:900px;margin:28px auto 40px;padding:14px 16px 0;color:var(--text3);font-size:11.5px;
-    line-height:1.6;border-top:1px solid var(--border-soft);}
 
   /* storyline selector */
   .line-select{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:11px;margin-bottom:18px;}
@@ -583,7 +583,7 @@
 
 <main>
   <section id="view-quests" class="view active">
-    <div class="hint">Прототип: показано 8 квестов из 393 для проверки удобства.</div>
+    <div class="hint">Полный список квестов — 393 шт. Нажмите на квест, чтобы увидеть награду и требования.</div>
     <div class="search-row">
       <input type="text" id="questSearch" class="search-input" placeholder="Поиск по названию квеста…" autocomplete="off">
       <button id="questSearchClear" class="search-clear" style="display:none;" title="Очистить">✕</button>
@@ -602,7 +602,7 @@
   </section>
 
   <section id="view-craft" class="view">
-    <div class="hint">Прототип: показано 10 предметов из 1686. Добавляйте нужные вещи в план (кнопка «+» на карточке), затем откройте «Мой план» — там сразу виден итоговый список сырья для фарма по всем добавленным вещам сразу.</div>
+    <div class="hint">Полный каталог крафта — 1686 рецептов. Добавляйте нужные вещи в план (кнопка «+» на карточке), затем откройте «Мой план» — там сразу виден итоговый список сырья для фарма по всем добавленным вещам сразу.</div>
     <div class="craft-subnav" id="craftSubnav">
       <button data-sub="catalog" class="active">Каталог</button>
       <button data-sub="plan">Мой план <span class="plan-count" id="planCount" style="display:none;">0</span></button>
@@ -638,7 +638,7 @@
   </section>
 
   <section id="view-lines" class="view">
-    <div class="hint">Прототип: 3 реальные сюжетные линии («Подводье», «Огнепапоротник», «Просто бизнес, ничего личного») — проверяем, удобно ли переключаться между линиями и читать цепочку с пулом наград.</div>
+    <div class="hint">3 сюжетные линии («Подводье», «Огнепапоротник», «Просто бизнес, ничего личного») — переключайтесь между ними и смотрите цепочку квестов с наградами за всю линию.</div>
     <div class="line-select" id="lineSelect"></div>
     <div class="line-head">
       <div class="line-banner" id="lineBanner">
@@ -663,7 +663,7 @@
 
   <section id="view-level" class="view locked-wrap">
     <div class="section-lock" id="levelLock" style="display:none;"></div>
-    <div class="hint">Прототип: планировщик опыта до следующего уровня. Таблица нужного опыта и предела опыта за бой — с <a href="https://nura.biz/beginner/experience" target="_blank" rel="noopener">nura.biz/beginner/experience</a>.</div>
+    <div class="hint">Планировщик опыта до следующего уровня. Таблица нужного опыта и предела опыта за бой — с <a href="https://nura.biz/beginner/experience" target="_blank" rel="noopener">nura.biz/beginner/experience</a>.</div>
 
     <div class="pool">
       <h3>Персонаж</h3>
@@ -715,8 +715,6 @@
     <div class="roadmap-list" id="roadmapList" style="margin-top:14px;"></div>
   </section>
 </main>
-
-<div class="footer-note">Это прототип для проверки удобства интерфейса. Данные — тестовая выборка, не полный список.</div>
 
 <div class="overlay" id="overlay">
   <div class="modal">
@@ -889,9 +887,9 @@ function iconOrDot(url, color){
 }
 
 // ---------- "Сообщить о неточности" — mailto:, без бэкенда ----------
-// Данные для этого прототипа частично взяты у "саба" (sabzero.biz) и могут расходиться с текущей
-// игрой (например, в рецептах фетишей). Вместо своей формы + сервера — просто открываем письмо
-// с уже подставленным контекстом (раздел/ID/название), реально долетает, без лишней инфраструктуры.
+// Часть данных (иконки, рецепты) сведена из nura.biz и sabzero.biz и может расходиться с текущей
+// игрой. Вместо своей формы + сервера — просто открываем письмо с уже подставленным контекстом
+// (раздел/ID/название), реально долетает, без лишней инфраструктуры.
 const REPORT_EMAIL = 'zhalenco@gmail.com';
 const REPORT_TYPES = ['Неверное количество', 'Неверный компонент / награда', 'Отсутствует компонент / шаг', 'Другое'];
 function reportBlockHtml(kind, id, name){
@@ -932,9 +930,7 @@ function wireReportBlocks(root){
   });
 }
 
-// ---------- Roadmap / "Идеи" — макет голосования без бэкенда ----------
-// Голоса и добавленные идеи хранятся только в localStorage этого браузера — честно написано
-// в самой вкладке. Реальная приоритизация с общим счётчиком голосов появится вместе с бэкендом.
+// ---------- Roadmap / "Идеи" — голосование через Supabase, общее для всех игроков ----------
 const STATUS_META = {
   review:   {label:'На рассмотрении', color:'var(--text3)'},
   progress: {label:'В работе',        color:'var(--accent)'},
