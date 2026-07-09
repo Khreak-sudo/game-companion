@@ -605,9 +605,11 @@
     box-shadow:0 0 6px -1px currentColor;}
 
   /* слоты-медальоны: точная схема саба — ряд реликвий сверху, две колонки брони по бокам,
-     ряд оружия снизу. У саба нет отдельной картинки персонажа — "силуэт" получается только
-     за счёт самой раскладки иконок, поэтому мы повторяем именно раскладку, без фоновой графики. */
+     ряд оружия снизу. За колонками — свой, оригинально нарисованный силуэт мистика с посохом
+     (не копия картинки саба — своя иллюстрация в похожем настроении и в золотой палитре сайта). */
   .equip-gear-wrap{position:relative;}
+  .equip-figure-bg{position:absolute;left:50%;top:0;transform:translateX(-50%);width:200px;max-width:56%;
+    height:100%;opacity:.24;pointer-events:none;z-index:0;}
   .equip-medallion-wrap,.equip-medallion-row{position:relative;z-index:1;}
   .equip-medallion-relics{margin-bottom:10px;}
   .equip-medallion-wrap{display:flex;justify-content:center;align-items:flex-start;gap:28px;margin-bottom:10px;}
@@ -837,6 +839,30 @@
       <h3>Снаряжение</h3>
       <div class="pool-note">Нажмите на слот, чтобы выбрать вещь. Требования по уровню/характеристикам показаны в списке — несоответствие не блокирует выбор, просто подсвечено.</div>
       <div class="equip-gear-wrap">
+        <svg class="equip-figure-bg" viewBox="0 0 140 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="equipRobeGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4a3a22"/>
+              <stop offset="55%" stop-color="#241c10"/>
+              <stop offset="100%" stop-color="#0c0a06"/>
+            </linearGradient>
+            <radialGradient id="equipGlowGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fbe7ae" stop-opacity=".95"/>
+              <stop offset="45%" stop-color="#e3b25c" stop-opacity=".5"/>
+              <stop offset="100%" stop-color="#e3b25c" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="24" cy="308" r="30" fill="url(#equipGlowGrad)"/>
+          <path d="M42,44 Q70,30 98,44 L106,118 Q110,220 100,336 Q70,362 40,336 Q30,220 34,118 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width=".6" stroke-opacity=".5"/>
+          <path d="M58,10 Q70,0 82,10 Q90,22 86,40 L54,40 Q50,22 58,10 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width=".6" stroke-opacity=".5"/>
+          <ellipse cx="70" cy="27" rx="9" ry="11" fill="#0a0806" opacity=".7"/>
+          <path d="M70,46 L67,338" stroke="#e3b25c" stroke-width="1.1" stroke-opacity=".45"/>
+          <path d="M46,60 Q34,120 32,200 Q31,260 40,320" fill="none" stroke="#e3b25c" stroke-width=".7" stroke-opacity=".3"/>
+          <path d="M94,60 Q106,120 108,200 Q109,260 100,320" fill="none" stroke="#e3b25c" stroke-width=".7" stroke-opacity=".3"/>
+          <path d="M40,80 Q22,140 24,220 Q25,270 30,300 L38,296 Q33,250 33,210 Q32,150 47,90 Z" fill="url(#equipRobeGrad)" stroke="#e3b25c" stroke-width=".5" stroke-opacity=".4"/>
+          <line x1="24" y1="300" x2="24" y2="66" stroke="#c8935a" stroke-width="1.6" stroke-opacity=".6"/>
+          <circle cx="24" cy="60" r="6" fill="url(#equipGlowGrad)"/>
+        </svg>
         <div class="equip-medallion-row equip-medallion-relics" id="equipSlotsRelics"></div>
         <div class="equip-medallion-wrap">
           <div class="equip-medallion-col" id="equipSlotsLeft"></div>
